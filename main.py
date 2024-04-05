@@ -16,8 +16,8 @@ bot = commands.Bot(
 
 @bot.event
 async def on_ready():
-    print("Bot is ready!")
-
+    """Botが起動したときに呼び出されるイベント"""
+    print(f"Bot is ready. Logged in as {bot.user}")
 
 @bot.event
 async def on_message(message: discord.Message):
@@ -33,7 +33,7 @@ async def on_message(message: discord.Message):
             await message.reply("ピン留めを解除しました")
         else:
             await reply.pin()
-        return
+        await bot.process_commands(message)  # コマンド処理を続行するための呼び出し
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 bot.run(TOKEN)
